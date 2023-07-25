@@ -1,7 +1,6 @@
 from app import app
 import pandas as pd
 import numpy as np
-import pickle
 from sklearn import svm
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
@@ -9,8 +8,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from flask import request, jsonify, redirect, flash
 from flask.templating import render_template
 import cloudinary.uploader
-import os, csv, re
-import config
+import os, csv, re, config, pickle
 from werkzeug.utils import secure_filename
 from app.models.dataTokohModel import db, Tokoh
 from flask_marshmallow import Marshmallow
@@ -126,11 +124,12 @@ def createModel():
         konten = Tokoh.query.all()
         tokos= tokohs_schema.dump(konten)
         return render_template('updateData.html', data=tokos)
-    if error :
-        flash('Dataset yang dimasukan tidak sesuai')
-        return redirect('/buatModel')
-        
     else:
         flash('Dataset yang dimasukan tidak sesuai')
         return redirect('/buatModel')
         # return jsonify({"msg": "Success buat model", "status": 200, "data": tokohs})
+
+def getAllTokoh():
+    konten = Tokoh.query.all()
+    tokos= tokohs_schema.dump(konten)
+    return render_template('updateData.html', data = tokos)

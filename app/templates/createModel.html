@@ -104,13 +104,15 @@
             text: 'model berhasil dibuat.'
          });
          } else {
+            document.getElementById('loaderModal').style.display = 'none';
             Swal.fire({
             icon: 'error',
-            title: 'Input Gagal!',
-            text: error.message
-         });document.getElementById('loaderModal').style.display = 'none'
+            title: 'Tokoh Gagal Dibuat!',
+            text: 'Dataset Tidak Sesuai'
+         });
          }
          document.getElementById('loaderModal').style.display = 'none'
+         window.location.href='/updateData'
    });
 });
  </script>

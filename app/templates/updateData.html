@@ -28,7 +28,7 @@
    {% with messages = get_flashed_messages() %}
       {% if messages %}
          {% for message in messages %}
-         <div class="alert alert-danger alert-dismissible" role="alert">
+         <div id="alert" class="alert alert-danger alert-dismissible" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="hideAlert(this)"><span aria-hidden="true">×</span></button>
                   {{message}}
                </div>
@@ -97,7 +97,7 @@
                               <td>{{x.akurasi}}</td>
                               <td>{{x.update_at}}</td>
                               <td>
-                                 <a href="/hapusTokoh/{{x.id}}" class="btn btn-danger hapusTokoh" data-url="/hapusTokoh/{{x.id}}">Hapus</a>
+                                 <button class="btn btn-danger hapusTokoh" data-url="/hapusTokoh/{{ x.id }}">Hapus</button>
                               </td>                                                                    
                             </tr>
                             {%endfor%}
@@ -129,8 +129,9 @@
       button.parentElement.remove();
    }
    // Menghilangkan alert setelah 5 detik
+   const alertt = document.getElementById('alert')
    setTimeout(function() {
-      document.getElementById('alert').remove();
+      alertt.remove();
    }, 5000);
 
    document.getElementById('selectNama').addEventListener('change', function() {
@@ -164,10 +165,11 @@
          });
          window.location.reload()
          } else {
+            document.getElementById('loaderModal').style.display = 'none'
             Swal.fire({
             icon: 'error',
             title: 'Gagal!',
-            text: error.message
+            text: 'Token tidak valid atau scrap sudah mencapai batas'
          });
          }
          document.getElementById('loaderModal').style.display = 'none'
@@ -176,33 +178,81 @@
       
    });
 
-// Menangkap tombol hapus tokoh
-const linkHapusTokoh = document.querySelector('.hapusTokoh');
+   // Select all elements with class "hapusTokoh"
+  const buttons = document.querySelectorAll('.hapusTokoh');
 
-// Tambahkan event listener untuk klik pada tombol hapus tokoh
-linkHapusTokoh.addEventListener('click', function(e) {
-  e.preventDefault(); // Menghentikan tindakan default dari tautan
-  
-  // Menampilkan pesan SweetAlert saat tautan diklik
-  swal({
-    title: "Apakah Anda yakin?",
-    text: "Data tokoh akan dihapus secara permanen!",
-    icon: "warning",
-    buttons: ["Batal", "Ya, hapus"],
-    dangerMode: true,
-  }).then((willDelete) => {
-    // Aksi yang dijalankan jika pengguna mengklik tombol "Ya, hapus"
-    if (willDelete) {
-      // Ambil URL hapus dari atribut data-url tautan
-      const url = linkHapusTokoh.getAttribute('data-url');
-      // Lakukan aksi penghapusan data dengan mengarahkan ke URL hapus
-      window.location.href = url;
-    } else {
-      // Aksi yang dijalankan jika pengguna mengklik tombol "Batal"
-      swal("Penghapusan data tokoh dibatalkan.", "", "info");
-    }
-  });
-});
+   // Add event listener to each "hapusTokoh" button
+   buttons.forEach((button) => {
+   button.addEventListener('click', function(e) {
+      e.preventDefault(); // Menghentikan tindakan default dari tautan
+
+      // Get the URL from the clicked button's data-url attribute
+      const url = this.getAttribute('data-url');
+
+      Swal.fire({
+         title: 'Hapus Tokoh?',
+         text: "Data tidak dapat kembali!",
+         icon: 'warning',
+         showCancelButton: true,
+         confirmButtonColor: '#3085d6',
+         cancelButtonColor: '#d33',
+         confirmButtonText: 'Hapus!'
+      }).then((result) => {
+         if (result.isConfirmed) {
+            window.location.href = url;
+            Swal.fire(
+               'Behasil Hapus Tokoh!',
+               'Tokoh berhasil di hapus',
+               'success'
+            )
+         }
+      });
+   });
+   });
+
+
+
+
+
+
+
+
+
+
+   // // Menangkap tombol hapus tokoh
+   // const linkHapusTokoh = document.getElementById('hapusTokoh');
+
+   // // Tambahkan event listener untuk klik pada tombol hapus tokoh
+   // linkHapusTokoh.addEventListener('click', function(e) {
+   // e.preventDefault(); // Menghentikan tindakan default dari tautan
+
+   // url = document.getElementById('hapusTokoh').getAttribute('data-url')
+
+   // Swal.fire({
+   //    title: 'Are you sure?',
+   //    text: "You won't be able to revert this!",
+   //    icon: 'warning',
+   //    showCancelButton: true,
+   //    confirmButtonColor: '#3085d6',
+   //    cancelButtonColor: '#d33',
+   //    confirmButtonText: 'Yes, delete it!'
+   //    }).then((result) => {
+   //    if (result.isConfirmed) {
+   //       Swal.fire(
+   //          'Deleted!',
+   //          'Your file has been deleted.',
+   //          'success'
+   //       )
+   //       window.location.href=url
+   //    }
+   //    })
+   // });
+   //   if (confirm("Press a button!") == true) {
+      
+   //    window.location.href=url
+   //    text = "You pressed OK!";
+   //    }
+   
 
 
 </script>
