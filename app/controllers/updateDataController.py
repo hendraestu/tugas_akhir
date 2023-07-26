@@ -11,10 +11,18 @@ from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 # from nltk.stem import PorterStemmer
 from app.models.dataTokohModel import db, Tokoh
+from app.models.riwayatModel import db, Riwayat
 from flask_marshmallow import Marshmallow
 import time, csv
 
 ma = Marshmallow(app)
+
+class RiwayatSchema(ma.Schema):
+    class Meta:
+        fielfs = ('id', 'id_nama', 'nama', 'positif', 'negatif', 'netral', 'update_at')
+
+riwayat_schema = RiwayatSchema()
+riwayats_schema = RiwayatSchema(many=True)
 
 class TokohSchema(ma.Schema):
     class Meta:
@@ -135,7 +143,15 @@ def update():
     tokoh.update_at = time.localtime(time.time())
     db.session.commit()
     tokohUpdate = tokoh_schema.dump(tokoh)
+
+    id_nama = id
     
+
+    newRiwayat = Riwayat(id_nama, nama, positif, negatif, netral)
+    db.session.add(newRiwayat)
+    db.session.commit()
+    riwayatUpdate = riwayat_schema.dump(newRiwayat)
+
     return render_template('updateData.html', data = tokohUpdate)
     # return jsonify(positif, negatif, netral)
     # print (since)
@@ -288,3 +304,21 @@ def getAllTokoh():
     konten = Tokoh.query.all()
     tokos= tokohs_schema.dump(konten)
     return render_template('updateData.html', data = tokos)
+
+def editTokoh(id):
+    data = Tokoh.query.filter_by(id=id).first()
+    datas = tokoh_schema.dump(data)
+    return render_template('editData.html', data = datas)
+
+def editTokohs():
+    id = request.form['id']
+    nama = request.form['nama']
+    tanggal = request.form['tanggal']
+    try:
+        tokoh = Tokoh.query.filter_by(id=id).first()
+        tokoh.nama = nama
+        tokoh.update_at = tanggal
+        db.session.commit()
+    except Exception as e:
+        flash('gagal mengedit tokoh')
+    return redirect("/updateData")

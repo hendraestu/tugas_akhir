@@ -32,5 +32,5 @@ cloud=cloudinary.config(
     api_secret = "QU5NQ3VXujb51b7Z8gQyBjx0T9A"
 )
 
-from app.models import dataTokohModel, userModel
+from app.models import dataTokohModel, userModel, riwayatModel
 from app import routes

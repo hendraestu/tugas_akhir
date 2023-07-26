@@ -42,6 +42,77 @@
                   </div>
                </div>
             </div>
+            <!-- <div class="row">
+               <div class="col">
+                  <div class="card">
+                     <div class="card-body">
+                        <h5 class="card-title">Hasil Sentimen</h5>
+                        <div id="columnChart"></div>
+                           <script>document.addEventListener("DOMContentLoaded", () => {
+                              const dataPositif = [{% for x in data %} {{ x.positif }}, {% endfor %}];
+                              const dataNetral = [{% for x in data %}  {{ x.netral }}, {% endfor %}];
+                              const dataNegatif = [{% for x in data %}  {{ x.negatif }}, {% endfor %}];
+                              const dataNama = [{% for x in data %} '{{x.nama}}', {% endfor %}];
+                              new ApexCharts(document.querySelector("#columnChart"), {
+                                 series: [{
+                                    name: 'Positif',
+                                    data: dataPositif
+                                 }, {
+                                    name: 'Netral',
+                                    data: dataNetral
+                                 }, {
+                                    name: 'Negatif',
+                                    data: dataNegatif
+                                 }],
+                                 chart: {
+                                    type: 'bar',
+                                    height: 350,
+                                    width: 700,
+                                    stacked: true,
+                                    stackType: '100%'
+                                 },
+                                 plotOptions: {
+                                    bar: {
+                                       horizontal: true,
+                                    },
+                                 },
+                                 stroke: {
+                                    width: 1,
+                                    colors: ['#fff']
+                                 },
+                                 title: {
+                                    text: 'all'
+                                 },
+                                 xaxis: {
+                                    categories: dataNama,
+                                 },
+                                 tooltip: {
+                                    y: {
+                                       formatter: function (val) {
+                                       return val + "K"
+                                       }
+                                    }
+                                 },
+                                 fill: {
+                                    opacity: 1
+                                 
+                                 },
+                                 legend: {
+                                    position: 'top',
+                                    horizontalAlign: 'left',
+                                    offsetX: 40
+                                 }
+                              }).render();
+                              });
+                           </script>
+                        </div> 
+                        <div class="content-tokoh">
+                           <h2>Sentimen ini diperbarui pada tanggal '{{data.update_at}}'</h2>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div> -->
             
          </div>
       </div>

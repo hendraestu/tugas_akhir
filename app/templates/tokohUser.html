@@ -8,6 +8,10 @@
             <div class="card">
                <div class="card-body">
                   <a class="btn-secondary" href="/"><button type="button" class="btn btn-secondary">Kembali</button></a>
+                  <!-- <form action="/download" method="POST">
+                     <input type="hidden" name="nama" value="{{data.nama}}">
+                     <button type="submit">download</button>
+                  </form> -->
                   <h5 class="card-title">{{data.nama}}</h5>
                   <div class="mySwiper">
                      <div class="swiper-wrapper">
@@ -71,7 +75,62 @@
                               });
                            </script>
                         </div> 
-                     </div>
+                        <br>
+                        <!-- <h5 class="card-title">Sentimen Perupdate</h5>
+                        <div id="columnChart2"></div>
+                           <script>document.addEventListener("DOMContentLoaded", () => {
+                              const dataPositif = [{% for x in data2 %} {{ x.positif }}, {% endfor %}];
+                              const dataNetral = [{% for x in data2 %}  {{ x.netral }}, {% endfor %}];
+                              const dataNegatif = [{% for x in data2 %}  {{ x.negatif }}, {% endfor %}];
+                              const dataNama = [{% for x in data2 %} '{{x.nama}}', {% endfor %}];
+                              const dataTanggal = [{% for x in data2 %} '{{x.update_at}}', {% endfor %}];
+                              new ApexCharts(document.querySelector("#columnChart2"), {
+                                 series: [{
+                                    name: 'Positif',
+                                    data: dataPositif
+                                 }, {
+                                    name: 'Negatif',
+                                    data: dataNegatif
+                                 }, {
+                                    name: 'Netral',
+                                    data: dataNetral
+                                 }],
+                                    chart: {
+                                    type: 'bar',
+                                    height: 350
+                                 },
+                                 plotOptions: {
+                                    bar: {
+                                       horizontal: false,
+                                       columnWidth: '55%',
+                                       endingShape: 'rounded'
+                                    },
+                                 },
+                                 dataLabels: {
+                                    enabled: false
+                                 },
+                                 stroke: {
+                                    show: true,
+                                    width: 2,
+                                    colors: ['transparent']
+                                 },
+                                 xaxis: {
+                                    categories: dataTanggal,
+                                 },
+                                 yaxis: {
+                                    title: {
+                                       text: 'sentimen'
+                                    }
+                                 },
+                                 fill: {
+                                    opacity: 1
+                                 }
+
+                              }).render();
+                              });
+                           </script>
+                        </div>
+                     </div> -->
                   </div>
                </div>
             </div>

@@ -58,7 +58,6 @@ def deleteTokoh(id):
         return redirect("/admin-login")
     return tokohController.deleteTokoh(id)
 
-
 @app.route("/", methods=['GET'])
 def sentiment():
     return tokohController.getAllTokohUser()
@@ -67,6 +66,14 @@ def sentiment():
 def tokohByIds(id):
     return tokohController.getDetailTokohUser(id)
 
-@app.route("/coba", methods=['GET'])
-def coba():
-    return tokohController.getAllTokohUser1()
+@app.route("/editTokoh/<id>")
+def editTokoh(id):
+    return updateDataController.editTokoh(id)
+
+@app.route("/editTokoh", methods=['POST'])
+def editTokohs():
+    return updateDataController.editTokohs()
+
+@app.route("/download", methods=['POST'])
+def download():
+    return tokohController.download_file()

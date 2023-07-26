@@ -84,7 +84,7 @@
                                 <th scope="col">Netral</th>
                                 <th scope="col">Akurasi</th>
                                 <th scope="col">Diperbarui</th>
-                                <th scope="col">Hapus</th>
+                                <th scope="col">Aksi</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -97,6 +97,7 @@
                               <td>{{x.akurasi}}</td>
                               <td>{{x.update_at}}</td>
                               <td>
+                                 <!-- <button type="button" class="btn btn-warning"><a href="/editTokoh/{{x.id}}">Edit</a></button> | -->
                                  <button class="btn btn-danger hapusTokoh" data-url="/hapusTokoh/{{ x.id }}">Hapus</button>
                               </td>                                                                    
                             </tr>

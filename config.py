@@ -3,11 +3,11 @@ import os
 basedir = os.path.dirname(os.path.abspath(__file__))
 
 class Config(object):
-    HOST = "containers-us-west-36.railway.app"
+    HOST = "containers-us-west-190.railway.app"
     DATABASE = "railway"
     USERNAME = "root"
-    PASSWORD = "MCAGX5G9ix9aVMtzraLQ"
-    PORT = "7808"
+    PASSWORD = "oxlRvhaD01k6Nhq8Ymzs"
+    PORT = "6142"
     JWT_SECRET_KEY = str(os.environ.get("JWT_SECRET"))
     SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://'+USERNAME+':'+PASSWORD+'@'+HOST+':'+PORT+'/'+DATABASE
 
